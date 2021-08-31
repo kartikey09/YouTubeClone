@@ -8,6 +8,7 @@ import './_app.scss'
 import LoginScreen from './screens/loginScreen/LoginScreen'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import WatchScreen from './screens/watchScreen/WatchScreen'
 
 const Layout = ({ children }) => {
 
@@ -53,6 +54,11 @@ const App = () => {
                 <Route path = '/search'>
                     <Layout>
                         <h1>Search </h1>
+                    </Layout>
+                </Route> 
+                <Route path = '/watch/:id'>
+                    <Layout>
+                        <WatchScreen/>
                     </Layout>
                 </Route> 
                 <Route>

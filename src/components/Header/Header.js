@@ -10,7 +10,7 @@ function Header({handleToggleSidebar}) {
         
         <FaBars className = 'header__menu' size = {26} onClick = {handleToggleSidebar} />
         <img
-            src='http://pngimg.com/uploads/youtube/youtube_PNG2.png'
+            src='https://www.rawpixel.com/image/2023799/young-man-red-tee-character-png'
             alt=''
             className='header__logo'
             />      
@@ -24,7 +24,7 @@ function Header({handleToggleSidebar}) {
         <div className = "header__icons">
             <MdNotifications size = {28}/>
             <MdApps size = {28} />
-            <img src = "https://images.app.goo.gl/UAECQZBLTqXUuHEr7zx"
+            <img src = 'https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png'
                     alt = "avatar"
             />
         </div>
