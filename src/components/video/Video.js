@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './_video.scss'
+import {LazyLoadImage, trackWindowScroll} from 'react-lazy-load-image-component'
 import { AiFillEye } from 'react-icons/ai'
 import request from '../../api'
 import moment from 'moment'
@@ -59,9 +60,8 @@ function Video({ video }) {
     return (
         <div className="video">
             <div className="video__top">
-                <img src= {medium.url}
-                    alt="thumbnail" />
-                <span>{_duration}</span>
+                <LazyLoadImage src={medium.url} effect = 'blur'/>
+                <span className = 'video__duration'>{_duration}</span>
             </div>
             <div className="video__title">
                 {title}
@@ -73,12 +73,11 @@ function Video({ video }) {
                 <span>{moment(publishedAt).fromNow()}</span>
             </div>
             <div className="video__channel">
-                <img src={channelIcon?.url}
-                    alt="channel icon" />
+                    <LazyLoadImage src={channelIcon?.url} effect = 'blur'/>
                 <p>{channelTitle}</p>
             </div>
         </div>
     )
 }
 
-export default Video
+export default trackWindowScroll(Video)

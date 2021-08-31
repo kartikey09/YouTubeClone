@@ -5,6 +5,7 @@ import CategoriesBar from '../../components/categoriesBar/CategoriesBar'
 import { Col, Container, Row } from 'react-bootstrap'
 import { getPopularVideos, getVideosByCategory } from '../../redux/actions/videos.action'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import SkeletonVideo from '../../components/skeleton/SkeletonVideo'
 
 function HomeScreen() {
 
@@ -13,7 +14,7 @@ function HomeScreen() {
         dispatch(getPopularVideos())
     }, [dispatch])
 
-    const {videos, activeCategory} = useSelector(state=>state.homeVideos)
+    const {videos, activeCategory, loading} = useSelector(state=>state.homeVideos)
 
     const fetchData=()=>{
         if(activeCategory === 'All')
@@ -25,7 +26,7 @@ function HomeScreen() {
     return (
             <Container> 
                 <CategoriesBar/>
-                    <Row>
+                    {/* <Row> */}
                         <InfiniteScroll 
                             dataLength = {videos.length}
                             next = {fetchData}
@@ -34,15 +35,20 @@ function HomeScreen() {
                                     <div className = "spinner-border text-danger d-block mx-auto"></div>
                                 }
                                 className = 'row'>
-                            {
+                            { !loading ?
                             videos.map((video) => (
                                 <Col lg = {3} md = {4} key = {video.id}>
                                     <Video video = {video} />
                                 </Col>
-                                ))
+                                )) : 
+                                
+                                    [...Array(20)].map(()=> 
+                                    <Col lg = {3} md = {4}>
+                                        <SkeletonVideo/>
+                                    </Col>)
                             }
                         </InfiniteScroll>
-                    </Row>
+                    {/* </Row> */}
             </Container>
     )
 }
