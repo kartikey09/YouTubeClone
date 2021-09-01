@@ -6,6 +6,7 @@ import request from '../../api'
 import moment from 'moment'
 import numeral from 'numeral'
 import { Col, Row } from 'react-bootstrap'
+import { useHistory } from 'react-router'
 
 const VideoHorizontal = ({video}) => {
 
@@ -50,19 +51,24 @@ const VideoHorizontal = ({video}) => {
         get_channel_icon()
     },[channelId])
 
+    const history = useHistory()
+    const handleClick = ()=>{
+        history.push(`/watch/${id.videoId}`)
+    }
+
     const seconds = moment.duration(duration).asSeconds()
     const _duration = moment.utc(100000).format('mm:ss')
     return (
-        <Row className = 'videoHorizontal m-1 py-2 align-align-items-center'>
-            <Col xs = {6} md = {4} className = 'videoHorizontal__left'>
+        <Row className = 'videoHorizontal m-1 py-2 align-align-items-center' onClick = {handleClick}>
+            <Col xs = {6} md = {6} className = 'videoHorizontal__left'>
                 <LazyLoadImage src= {medium.url} 
                 effect = 'blur'
                 className = 'videoHorizontal__thumbnail'
                 wrapperClassName = 'videoHorizontal__thumbnail-wrapper'/>
-                <span className = 'video__top__duration'>{_duration}</span>
+                <span className = 'videoHorizontal __duration'>{_duration}</span>
             </Col>
             
-            <Col xs = {6} md = {8} className = 'videoHorizontal__right p-0'>
+            <Col xs = {6} md = {6} className = 'videoHorizontal__right p-0'>
                 <p className='mb-1 videoHorizontal__title'>{title}</p>
                 <div className='videoHorizontal__details'>
                     <AiFillEye /> {numeral(views).format('0.a')} Views •
