@@ -4,18 +4,22 @@ import moment from 'moment'
 import numeral from 'numeral'
 import { MdThumbUp, MdThumbDown } from 'react-icons/md'
 import ShowMoreText from 'react-show-more-text'
-// import { useDispatch, useSelector } from 'react-redux'
-// import {
-//     checkSubscriptionStatus,
-//     getChannelDetails,
-// } from '../../redux/actions/channel.action'
+import { useDispatch, useSelector } from 'react-redux'
+import {checkSubscriptionStatus, getChannelDetails} from './../../redux/actions/channels.action'
+
 
 const VideoMetaData = ({video : {snippet, statistics}, videoId}) => {
 
     const {channelId, channelTitle, description, title, publishedAt} = snippet
     const {viewCount, likeCount, dislikeCount} = statistics
+    const {snippet : channelSnippet, statistics : channelStatistics} = useSelector(state=>state.channelDetails.channel)
+    const subscriptionStatus = useSelector(state => state.channelDetails.subscriptionStatus)
+    const dispatch = useDispatch()
 
-
+    useEffect(() => {
+        dispatch(getChannelDetails(channelId))
+        dispatch(checkSubscriptionStatus(channelId) )
+    }, [dispatch, channelId])
 
     return (
         <div className='py-2 videoMetaData'>
@@ -42,7 +46,7 @@ const VideoMetaData = ({video : {snippet, statistics}, videoId}) => {
             <div className='py-3 my-2 videoMetaData__channel d-flex justify-content-between align-items-center'>
                 <div className='d-flex'>
                     <img
-                        src='https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png'
+                        src={channelSnippet?.thumbnails?.default?.url}
                         alt=''
                         className='mr-3 rounded-circle'
                     />
@@ -50,7 +54,7 @@ const VideoMetaData = ({video : {snippet, statistics}, videoId}) => {
                         <span>{channelTitle}</span>
                         <span>
                             {' '}
-                            {numeral(100000).format('0.a')}
+                            {numeral(channelStatistics?.subscriberCount).format('0.a')}
                             {' '}
                             Subscribers
                         </span>
@@ -58,7 +62,7 @@ const VideoMetaData = ({video : {snippet, statistics}, videoId}) => {
                 </div>
 
                 <button
-                    className= 'p-2 m-2 border-0 btn'>Subscribe
+                    className= {`p-2 m-2 border-0 btn ${subscriptionStatus && 'btn-gray'}`}>{subscriptionStatus? 'Subscribed' : 'Subscribe'}
                 </button>
             </div>
             
