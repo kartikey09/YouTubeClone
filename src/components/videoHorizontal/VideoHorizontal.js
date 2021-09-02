@@ -8,11 +8,7 @@ import numeral from 'numeral'
 import { Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router'
 
-const VideoHorizontal = ({video}) => {
-
-    const [views, setViews] = useState(null)
-    const [duration, setDuration] = useState(null)
-    const [channelIcon, setChannelIcon] = useState(null)
+const VideoHorizontal = ({video, searchScreen}) => {
 
     const {id, snippet : {
         channelId,
@@ -23,6 +19,11 @@ const VideoHorizontal = ({video}) => {
         thumbnails : {medium},
     }} = video
 
+    const [views, setViews] = useState(null)
+    const [duration, setDuration] = useState(null)
+    const [channelIcon, setChannelIcon] = useState(null)
+    const isVideo = id.kind === 'youtube#video'
+    
     useEffect(()=>{
         const get_video_details= async() =>{
             const{data:{items}} = await request('/videos', {
@@ -53,31 +54,42 @@ const VideoHorizontal = ({video}) => {
 
     const history = useHistory()
     const handleClick = ()=>{
-        history.push(`/watch/${id.videoId}`)
+        isVideo
+        ? history.push(`/watch/${id.videoId}`)
+        : history.push(`/channel/${id.videoId}`)
     }
-
+    const thumbnail = !isVideo && 'videoHorizontal__thumbnail-channel'
     const seconds = moment.duration(duration).asSeconds()
     const _duration = moment.utc(100000).format('mm:ss')
     return (
-        <Row className = 'videoHorizontal m-1 py-2 align-align-items-center' onClick = {handleClick}>
-            <Col xs = {6} md = {6} className = 'videoHorizontal__left'>
+        <Row className = {`videoHorizontal m-1 py-2 ${!isVideo && 'align-items-center'}`} onClick = {handleClick}>
+            <Col xs = {6} md = {searchScreen ? 4 : 6} className = 'videoHorizontal__left'>
                 <LazyLoadImage src= {medium.url} 
                 effect = 'blur'
-                className = 'videoHorizontal__thumbnail'
+                className = {`videoHorizontal__thumbnail ${thumbnail}`}
                 wrapperClassName = 'videoHorizontal__thumbnail-wrapper'/>
-                <span className = 'videoHorizontal __duration'>{_duration}</span>
+                {isVideo &&
+                <span className = 'videoHorizontal __duration'>{_duration}</span>}
             </Col>
             
-            <Col xs = {6} md = {6} className = 'videoHorizontal__right p-0'>
+            <Col xs = {6} md = {searchScreen ? 8 : 6} className = 'videoHorizontal__right p-0'>
                 <p className='mb-1 videoHorizontal__title'>{title}</p>
-                <div className='videoHorizontal__details'>
-                    <AiFillEye /> {numeral(views).format('0.a')} Views •
-                    {moment(publishedAt).fromNow()}
-                </div>
+                {
+                    isVideo &&
+                    <div className='videoHorizontal__details'>
+                        <AiFillEye /> {numeral(views).format('0.a')} Views •
+                        {moment(publishedAt).fromNow()}
+                    </div>
+                }
+
+                {isVideo && searchScreen && <p className = 'mt-1'>{description}</p>}
+
                 <div className='my-1 videoHorizontal__channel d-flex align-items-center'>
-                    {/* TODO: show in search screen */}
-                    {/* <LazyLoadImage src='https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png' 
-                    effect='blur' /> */}
+                    {
+                        isVideo &&
+                        <LazyLoadImage src={channelIcon?.url} 
+                        effect='blur' />
+                    }
                     <p className='mb-0'>{channelTitle}</p>
                 </div>
             </Col>
