@@ -1,4 +1,4 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEO_FAIL, RELATED_VIDEO_REQUEST, RELATED_VIDEO_SUCCESS, SEARCHED_VIDEO_FAIL, SEARCHED_VIDEO_REQUEST, SEARCHED_VIDEO_SUCCESS, SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS, SUBSCRIPTIONS_CHANNEL_FAIL, SUBSCRIPTIONS_CHANNEL_REQUEST, SUBSCRIPTIONS_CHANNEL_SUCCESS } from '../actionTypes'
+import { CHANNEL_DETAILS_REQUEST, CHANNEL_DETAILS_SUCCESS, CHANNEL_VIDEOS_FAIL, CHANNEL_VIDEOS_REQUEST, CHANNEL_VIDEOS_SUCCESS, HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEO_FAIL, RELATED_VIDEO_REQUEST, RELATED_VIDEO_SUCCESS, SEARCHED_VIDEO_FAIL, SEARCHED_VIDEO_REQUEST, SEARCHED_VIDEO_SUCCESS, SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS, SUBSCRIPTIONS_CHANNEL_FAIL, SUBSCRIPTIONS_CHANNEL_REQUEST, SUBSCRIPTIONS_CHANNEL_SUCCESS } from '../actionTypes'
 import request from '../../api'
 export const getPopularVideos = () => async (dispatch, getState) => {
     try {
@@ -170,6 +170,35 @@ export const getSubscriptionChannel = id => async (dispatch, getState)=>{
         console.error(error.response.data)
         dispatch({
             type : SUBSCRIPTIONS_CHANNEL_FAIL,
+            payload : error.response.data,
+        })
+    }
+}
+
+export const getVideosByChannel = id => async (dispatch,getState)=>{
+    try{
+        console.log(id)
+        dispatch({
+            type : CHANNEL_VIDEOS_REQUEST
+        })
+
+        const { data }  = await request('/channels', {
+            params : {
+                part : 'snippet,contentDetails,statistics',
+                id : id
+            },
+            headers : {
+                Authorization : `Bearer ${getState().auth.oAuth}`
+            }
+        })
+        // dispatch({
+        //     type : CHANNEL_VIDEOS_SUCCESS,
+        //     payload : data.items,
+        // })
+    } catch(error){
+        console.error(error.response.data)
+        dispatch({
+            type : CHANNEL_VIDEOS_FAIL,
             payload : error.response.data,
         })
     }
