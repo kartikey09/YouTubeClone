@@ -10,6 +10,7 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import WatchScreen from './screens/watchScreen/WatchScreen'
 import SearchScreen from './screens/SearchScreen'
+import SubscriptionScreen from './screens/subscriptionScreen/SubscriptionScreen'
 
 const Layout = ({ children }) => {
 
@@ -60,6 +61,16 @@ const App = () => {
                 <Route path = '/watch/:id'>
                     <Layout>
                         <WatchScreen/>
+                    </Layout>
+                </Route> 
+                <Route path = '/feed/subscriptions'>
+                    <Layout>
+                        <SubscriptionScreen/>
+                    </Layout>
+                </Route> 
+                <Route path = '/channel/:channelId'>
+                    <Layout>
+                        channel Screen
                     </Layout>
                 </Route> 
                 <Route>
