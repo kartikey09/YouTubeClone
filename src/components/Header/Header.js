@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 function Header({ handleToggleSidebar }) {
 
     const [input, setInput] = useState('')
-    const imgURL = useSelector(state => state.auth.user.photoURL);
+    const imgURL = useSelector(state => state?.auth?.user?.photoURL);
     const history = useHistory()
     const handleSubmit = () => {
         history.push(`/search/${input}`)
