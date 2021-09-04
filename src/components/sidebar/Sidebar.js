@@ -17,10 +17,12 @@ function Sidebar({ sidebar, handleToggleSidebar }) {
         <nav
             className={sidebar ? "sidebar open" : 'sidebar'}
             onClick={handleToggleSidebar}>
-            <li>
-                <MdHome size={23} />
-                <span>Home</span>
-            </li>
+            <Link to='/'>
+                <li>
+                    <MdHome size={23} />
+                    <span>Home</span>
+                </li>
+            </Link>
 
             <Link to='/feed/subscriptions'>
                 <li>
@@ -44,10 +46,10 @@ function Sidebar({ sidebar, handleToggleSidebar }) {
                 <span>Library</span>
             </li>
 
-            <li>
+            {/* <li>
                 <MdSentimentDissatisfied size={23} />
                 <span>I don't Know</span>
-            </li>
+            </li> */}
             <hr />
             <li>
                 <MdExitToApp size={23} onClick={handleLogOut} />

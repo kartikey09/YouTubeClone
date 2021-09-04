@@ -37,7 +37,8 @@ function HomeScreen() {
                                 className = 'row'>
                             { !loading ?
                             videos.map((video) => (
-                                <Col lg = {3} md = {4} key = {video.id}>
+                                // <Col lg = {3} md = {4} key = {video.id}>
+                                <Col lg = {3} md = {4}>
                                     <Video video = {video} />
                                 </Col>
                                 )) : 

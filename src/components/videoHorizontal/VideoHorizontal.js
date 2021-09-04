@@ -72,7 +72,7 @@ const VideoHorizontal = ({video, searchScreen, subScreen}) => {
                 className = {`videoHorizontal__thumbnail ${thumbnail}`}
                 wrapperClassName = 'videoHorizontal__thumbnail-wrapper'/>
                 {isVideo &&
-                <span className = 'videoHorizontal __duration'>{_duration}</span>}
+                <span className = 'videoHorizontal__duration'>{_duration}</span>}
             </Col>
             
             <Col xs = {6} md = {searchScreen || subScreen ? 8 : 6} className = 'videoHorizontal__right p-0'>

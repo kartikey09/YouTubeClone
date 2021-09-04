@@ -2,13 +2,25 @@
 
 .videoHorizontal {
     border-bottom: 0.3px solid $border-colour;
-
+    position: relative;
     cursor: pointer;
+
+    &__duration {
+        position: absolute;
+
+        bottom: 0.6rem;
+        right: 1.2rem;
+
+        font-size: 0.9rem;
+        padding: 0.2rem;
+        background: #080808ec;
+        border-radius: 3px;
+    }
 
     &__left {
         position: relative;
         text-align: center;
-        // padding-left: 0 !important;
+        padding-left: 0 !important;
     }
 
     &__thumbnail {
@@ -22,18 +34,6 @@
         &-wrapper {
             width: 100%;
         }
-    }
-
-    &__duration {
-        position: absolute;
-
-        bottom: 1rem;
-        right: 1.2rem;
-
-        font-size: 0.9rem;
-        padding: 0.2rem;
-        background: #080808ec;
-        border-radius: 3px;
     }
 
     &__details {

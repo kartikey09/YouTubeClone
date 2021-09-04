@@ -13,6 +13,7 @@
     z-index: 999;
     position: fixed;
     top : 0;
+
     &__menu{
         display: none;
     }
@@ -22,6 +23,11 @@
         height: 30px;
         object-fit: contain;
         display: block;
+        margin-left: 5vw;
+    }
+
+    &__search{
+        margin-top: 0.5vh;
     }
 
     form{

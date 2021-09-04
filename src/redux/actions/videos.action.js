@@ -14,6 +14,7 @@ export const getPopularVideos = () => async (dispatch, getState) => {
                 pageToken: getState().homeVideos.nextPageToken,
             },
         })
+
         dispatch({
             type: HOME_VIDEOS_SUCCESS,
             payload: {
@@ -24,7 +25,7 @@ export const getPopularVideos = () => async (dispatch, getState) => {
         })
 
     } catch (err) {
-        console.log(err.message)
+        console.error(err.message)
         dispatch({
             type: HOME_VIDEOS_FAIL
         })
@@ -55,7 +56,7 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
         })
 
     } catch (err) {
-        console.log(err.message)
+        console.error(err.message)
         dispatch({
             type: HOME_VIDEOS_FAIL
         })
@@ -138,7 +139,7 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
         })
 
     } catch (err) {
-        console.log(err.message)
+        console.error(err.message)
         dispatch({
             type: SEARCHED_VIDEO_FAIL
         })
@@ -177,7 +178,7 @@ export const getSubscriptionChannel = id => async (dispatch, getState)=>{
 
 export const getVideosByChannel = id => async (dispatch,getState)=>{
     try{
-        console.log(id)
+        console.error(id)
         dispatch({
             type : CHANNEL_VIDEOS_REQUEST
         })

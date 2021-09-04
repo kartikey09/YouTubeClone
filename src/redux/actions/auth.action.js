@@ -11,7 +11,7 @@ export const login = ()=> async dispatch=>{
         const provider = new GoogleAuthProvider()
         provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/yt-analytics-monetary.readonly', 'https://www.googleapis.com/auth/yt-analytics.readonly')
         const res = await signInWithPopup(auth, provider)
-        console.log(res)
+
         const oAuth = res._tokenResponse.oauthAccessToken
         const accessToken = res.user.accessToken
         const profile = {
