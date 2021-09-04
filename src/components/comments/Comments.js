@@ -34,7 +34,7 @@ const Comments = ({videoId, totalComments}) => {
                 <form onSubmit={handleComment} className='d-flex flex-grow-1'>
                     <input type='text'
                         className='flex-grow-1'
-                        placeholder='Write a commment...(if you dont see your posted comment within 2sec refresh)'
+                        placeholder='Write a commment...(if you dont see your posted comment within 5 sec then refresh)'
                         value = {text}
                         onChange = {e=>setText(e.target.value)}
                     />
