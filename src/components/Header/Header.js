@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './_header.scss'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -9,8 +9,9 @@ import { Link } from 'react-router-dom'
 
 function Header({ handleToggleSidebar }) {
 
+    const imgURL = useSelector(state => state?.auth?.user?.photoURL || "img");
+    
     const [input, setInput] = useState('')
-    const imgURL = useSelector(state => state?.auth?.user?.photoURL);
     const history = useHistory()
     const handleSubmit = () => {
         history.push(`/search/${input}`)
